@@ -1,0 +1,17 @@
+[Unit]
+Description=MayaCardio Cloud Server Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/var/lib/mayacardio
+ExecStart=/usr/bin/python3 /opt/mayacardio/cloud/server.py --port 8000 --db /var/lib/mayacardio/maya_cloud.db
+Restart=always
+RestartSec=3
+KillMode=process
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

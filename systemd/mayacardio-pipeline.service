@@ -1,0 +1,22 @@
+[Unit]
+Description=MayaCardio Bedside Data Pipeline Daemon
+After=network.target mayacardio-mock.service
+Wants=mayacardio-mock.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/var/lib/mayacardio
+ExecStart=/usr/local/bin/pipeline --db /var/lib/mayacardio/maya_device.db run
+Restart=always
+RestartSec=2
+KillMode=process
+StandardOutput=journal
+StandardError=journal
+
+# Resource controls (Criterion 8: ARM64 <= 4 cores, <= 2 GB RAM)
+MemoryMax=1536M
+CPUQuota=300%
+
+[Install]
+WantedBy=multi-user.target

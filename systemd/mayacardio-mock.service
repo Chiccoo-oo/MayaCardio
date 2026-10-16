@@ -1,0 +1,16 @@
+[Unit]
+Description=MayaCardio Biosignal Mock Reference Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/var/lib/mayacardio
+ExecStart=/usr/bin/python3 /opt/mayacardio/mock/biosignal_mock.py --port 7100 --mode signal --duration 86400
+Restart=always
+RestartSec=2
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
